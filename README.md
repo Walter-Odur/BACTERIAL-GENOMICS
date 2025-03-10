@@ -1,11 +1,11 @@
 <h1 align="center">
-    <b>VARIANT CALLING PIPELINE</b> <br>
-    <b>DOCUMENTATION</b>
+    <b>BACTERIAL GENOMICS</b> <br>
+    <b>VARIANT CALLING PIPELINE DOCUMENTATION</b>
 </h1>
 
 <h3 align="center">
-    Author: [Your Name] <br>
-    Affiliation: [Your Institution]
+    Author: Walter Odur <br>
+    Affiliation: ACE-Uganda
 </h3>
 
 ## **Background**
@@ -34,7 +34,7 @@ Ensure you have the following tools installed before running the pipeline:
 - [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) - Quality control of sequencing data.
 - [Fastp](https://github.com/OpenGene/fastp) - Trimming of low-quality reads.
 - [Samtools](http://www.htslib.org/) - Processing of BAM/SAM files.
-- [BCFtools](http://www.htslib.org/) - Variant calling and filtering.
+- [BCFtools](https://samtools.github.io/bcftools/bcftools.html) - Variant calling and filtering.
 
 💡 **Note:** This pipeline assumes you are working with **paired-end sequencing data** stored in a `reads/` directory.
 
