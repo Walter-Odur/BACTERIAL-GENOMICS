@@ -47,40 +47,20 @@ alt="This figure represents the step-by-step workflow of the variant calling pip
 <figcaption aria-hidden="true">Workflow from raw reads to variant identification.</figcaption>
 </figure>
 
-# **The Bash Pipeline: Variant Calling from Raw Reads**
+# **The Detailed Steps**
 
 - The **Bash script** (`variant_calling.sh`) for running the complete pipeline is provided
-  [**HERE**](https://github.com/your-repo).  
+  [**HERE**](https://github.com/Walter-Odur/BACTERIAL-GENOMICS).  
   Below is a breakdown of all steps included in the script.
 
 ---
 
+## **Step 1: Index the Reference Genome**
+<div align="justify">
+Indexing the reference genome is essential for efficient read alignment.
+BWA uses indexed files to rapidly find alignment positions without scanning
+the entire genome.
+</div>
+
 ```bash
-# Index the reference genome
 bwa index ref/GCF_000195955.2_ASM19595v2_genomic.fna
-
-# Quality control with FastQC
-fastqc -o Results/fastQC reads/ERR987696_1.fastq reads/ERR987696_2.fastq
-
-# Read trimming with Fastp
-fastp -i reads/ERR987696_1.fastq -I reads/ERR987696_2.fastq \
-      -o Results/trim/ERR987696_1_trim.fastq -O Results/trim/ERR987696_2_trim.fastq
-
-# Read alignment with BWA
-bwa mem -t 16 -aM ref/GCF_000195955.2_ASM19595v2_genomic.fna \
-        Results/trim/ERR987696_1_trim.fastq Results/trim/ERR987696_2_trim.fastq \
-        > Results/bams/ERR987696.sam
-
-# Convert SAM to BAM
-samtools view -bS Results/bams/ERR987696.sam > Results/bams/ERR987696.bam
-
-# Sort and index BAM files
-samtools sort Results/bams/ERR987696.bam -o Results/bams/ERR987696_sorted.bam
-samtools index Results/bams/ERR987696_sorted.bam
-
-# Generate mpileup file
-bcftools mpileup -f ref/GCF_000195955.2_ASM19595v2_genomic.fna \
-                 Results/bams/ERR987696_sorted.bam > Results/mpileups/ERR987696.mpileup
-
-# Perform variant calling
-bcftools call -v -m -O v -o Results/vcfs/ERR987696_variants.vcf Results/mpileups/ERR987696.mpileup
